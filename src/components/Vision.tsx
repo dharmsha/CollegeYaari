@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import {
   AcademicCapIcon,
   HeartIcon,
@@ -13,20 +13,20 @@ import {
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 
-// Animation variants
+// ✅ Fixed Animation variants - Correct easing syntax
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
 };
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
 };
 
 const fadeInRight = {
   hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
 };
 
 const staggerContainer = {
@@ -39,12 +39,12 @@ const staggerContainer = {
 
 const scaleUp = {
   hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } }
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" as const } }
 };
 
 const floatingAnimation = {
   y: [0, -10, 0],
-  transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+  transition: { duration: 3, repeat: Infinity, ease: "easeInOut" as const }
 };
 
 export default function CollegeYaariVisionPage() {
@@ -102,12 +102,8 @@ export default function CollegeYaariVisionPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 overflow-x-hidden">
       
-      {/* Hero Section with Parallax */}
-      <motion.div 
-        initial="hidden"
-        animate="visible"
-        className="relative overflow-hidden bg-gradient-to-br from-blue-700 via-purple-700 to-indigo-800 text-white"
-      >
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-700 via-purple-700 to-indigo-800 text-white">
         <motion.div 
           className="absolute inset-0 bg-black/20"
           initial={{ opacity: 0 }}
@@ -130,9 +126,9 @@ export default function CollegeYaariVisionPage() {
         <div className="relative max-w-7xl mx-auto px-4 py-20 md:py-28">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
-            variants={fadeInUp}
             initial="hidden"
             animate="visible"
+            variants={fadeInUp}
           >
             <motion.div 
               className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/20 backdrop-blur-sm text-sm mb-6"
@@ -169,7 +165,7 @@ export default function CollegeYaariVisionPage() {
           </motion.div>
         </div>
         
-        {/* Animated Bottom Curve */}
+        {/* Bottom Curve */}
         <motion.div 
           className="absolute bottom-0 left-0 right-0"
           initial={{ opacity: 0, y: 20 }}
@@ -180,15 +176,15 @@ export default function CollegeYaariVisionPage() {
             <path fill="#ffffff" fillOpacity="1" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
           </svg>
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* Stats Section with Stagger Animation */}
+      {/* Stats Section */}
       <motion.div 
         className="max-w-7xl mx-auto px-4 -mt-16 mb-16"
-        variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
+        variants={staggerContainer}
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {stats.map((stat, idx) => {
@@ -411,7 +407,7 @@ export default function CollegeYaariVisionPage() {
         </div>
       </motion.div>
 
-      {/* Footer Note with Animation */}
+      {/* Footer */}
       <motion.div 
         className="border-t border-gray-200 py-6 text-center text-gray-500 text-sm"
         initial={{ opacity: 0 }}
