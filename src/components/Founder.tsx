@@ -151,7 +151,7 @@ export default function FounderPage() {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <Image
                 src="/avi.png"
-                alt="Abhishek Kumar Singh"
+                alt="Abhishek Singh"
                 width={500}
                 height={500}
                 className="object-cover w-full h-[450px] rounded-3xl"
@@ -200,7 +200,7 @@ export default function FounderPage() {
                 }}
                 transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
               >
-                College Yaarri
+                College Yaari
               </motion.span>
             </motion.h1>
 
@@ -208,7 +208,7 @@ export default function FounderPage() {
               className="text-3xl md:text-4xl font-semibold text-purple-400 mb-4"
               variants={fadeInUp}
             >
-              Abhishek Kumar Singh
+              Abhishek Singh
             </motion.h2>
 
             <motion.p 
