@@ -164,11 +164,11 @@ export default function CollegeFooter() {
         <div className="flex flex-wrap items-center justify-center gap-8 py-10 border-y border-slate-900">
           <div className="flex items-center gap-3">
              <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-indigo-500"><Phone size={16}/></div>
-             <p className="text-sm font-black tracking-tighter">+91 80847 20333</p>
+             <p className="text-sm font-black tracking-tighter">+91 8292748995</p>
           </div>
           <div className="flex items-center gap-3">
              <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-indigo-500"><Mail size={16}/></div>
-             <p className="text-sm font-black tracking-tighter">hello@collegeyaari.com</p>
+             <p className="text-sm font-black tracking-tighter">collegeyaariofficial@gmail.com</p>
           </div>
           <div className="flex items-center gap-3">
              <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-indigo-500"><MapPin size={16}/></div>
