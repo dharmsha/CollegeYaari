@@ -8,7 +8,8 @@ import {
   FaUniversity, FaUserFriends, FaLaptopCode, FaCalendarAlt,
   FaBookReader, FaChevronDown, FaRocket, FaUserAlt, FaHeadset, 
   FaSignOutAlt, FaQuestionCircle, FaGraduationCap, FaBriefcase,
-  FaRegCalendarAlt, FaUsers, FaChartLine, FaWhatsapp, FaPhone
+  FaRegCalendarAlt, FaUsers, FaChartLine, FaWhatsapp, FaPhone,
+  FaInfoCircle, FaEnvelope, FaMapMarkerAlt
 } from 'react-icons/fa'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -17,19 +18,16 @@ export default function CollegeHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [activeMobileSection, setActiveMobileSection] = useState('main')
   
   const userMenuRef = useRef(null)
   const pathname = usePathname()
 
-  // Scroll visibility handler
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close menus on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
@@ -40,7 +38,6 @@ export default function CollegeHeader() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // Close on escape key
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
@@ -53,7 +50,6 @@ export default function CollegeHeader() {
     return () => window.removeEventListener('keydown', handleEscape)
   }, [])
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -67,6 +63,8 @@ export default function CollegeHeader() {
 
   const navItems = [
     { name: 'Home', href: '/', icon: <FaHome /> },
+    { name: 'About', href: '/about', icon: <FaInfoCircle /> },
+    { name: 'Contact', href: '/contact', icon: <FaEnvelope /> },
     { name: 'Inquiry', href: '/Inquiry', icon: <FaQuestionCircle /> },
     { name: 'Campus', href: '/campus', icon: <FaUniversity /> },
     { name: 'Colleges', href: '/colleges', icon: <FaGraduationCap /> },
@@ -77,15 +75,14 @@ export default function CollegeHeader() {
     { name: 'Placements', href: '/placements', icon: <FaChartLine /> },
   ]
 
-  // Group navigation for better organization
-  const mainNavItems = navItems.slice(0, 5)
-  const moreNavItems = navItems.slice(5)
+  // For mobile bottom nav (first 5 items)
+  const mobileNavItems = navItems.slice(0, 5)
 
   return (
     <>
       <header className={`
         fixed top-0 left-0 right-0 z-[100] transition-all duration-300
-        ${isScrolled ? 'bg-white/90 backdrop-blur-md py-2 shadow-md' : 'bg-white py-3 md:py-4'}
+        ${isScrolled ? 'bg-white/95 backdrop-blur-md py-2 shadow-md' : 'bg-white py-3 md:py-4'}
       `}>
         <div className="container mx-auto px-3 md:px-4 flex items-center justify-between">
           
@@ -102,9 +99,9 @@ export default function CollegeHeader() {
             </h1>
           </Link>
 
-          {/* DESKTOP NAV - Hidden on mobile */}
-          <nav className="hidden xl:flex items-center gap-1">
-            {mainNavItems.map((item) => {
+          {/* DESKTOP NAV */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {navItems.map((item) => {
               const active = pathname === item.href
               return (
                 <Link
@@ -130,33 +127,6 @@ export default function CollegeHeader() {
                 </Link>
               )
             })}
-
-            {/* More dropdown */}
-            <div className="relative group">
-              <button className="px-3 py-2 text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-full flex items-center gap-1">
-                More <FaChevronDown className="text-[10px] group-hover:rotate-180 transition-transform" />
-              </button>
-              
-              <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                {moreNavItems.map((item) => {
-                  const active = pathname === item.href
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={`flex items-center gap-3 px-4 py-2.5 text-sm rounded-xl transition-all ${
-                        active 
-                          ? 'bg-indigo-50 text-indigo-600' 
-                          : 'text-slate-600 hover:bg-slate-50'
-                      }`}
-                    >
-                      <span className="text-xs">{item.icon}</span>
-                      {item.name}
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
           </nav>
 
           {/* ACTIONS */}
@@ -179,7 +149,7 @@ export default function CollegeHeader() {
               <span className="absolute top-1.5 right-1.5 md:top-2 md:right-2 w-1.5 h-1.5 md:w-2 md:h-2 bg-red-500 rounded-full ring-2 ring-white" />
             </motion.button>
 
-            {/* User Dropdown - Hidden on mobile */}
+            {/* User Dropdown */}
             <div className="relative hidden md:block" ref={userMenuRef}>
               <motion.button 
                 whileHover={{ scale: 1.05 }}
@@ -206,19 +176,14 @@ export default function CollegeHeader() {
                       <p className="text-xs text-slate-400">Student</p>
                     </div>
                     
-                    {[
-                      { name: 'Profile', icon: <FaUserAlt />, href: '/profile' },
-                      { name: 'Settings', icon: <FaHeadset />, href: '/settings' }
-                    ].map(opt => (
-                      <Link 
-                        key={opt.name} 
-                        href={opt.href} 
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-indigo-50 rounded-xl transition-all"
-                      >
-                        <span className="text-xs">{opt.icon}</span>
-                        {opt.name}
-                      </Link>
-                    ))}
+                    <Link href="/profile" className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-indigo-50 rounded-xl transition-all">
+                      <FaUserAlt className="text-xs" />
+                      Profile
+                    </Link>
+                    <Link href="/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-indigo-50 rounded-xl transition-all">
+                      <FaHeadset className="text-xs" />
+                      Settings
+                    </Link>
                     
                     <hr className="my-1 border-slate-50" />
                     
@@ -236,7 +201,7 @@ export default function CollegeHeader() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(true)} 
-              className="xl:hidden p-2 md:p-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg md:rounded-xl shadow-lg"
+              className="lg:hidden p-2 md:p-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg md:rounded-xl shadow-lg"
             >
               <FaBars size={14} className="md:text-base" />
             </motion.button>
@@ -244,11 +209,10 @@ export default function CollegeHeader() {
         </div>
       </header>
 
-      {/* MOBILE MENU - Fully optimized for mobile */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
@@ -257,7 +221,6 @@ export default function CollegeHeader() {
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[150]"
             />
             
-            {/* Menu Panel */}
             <motion.div 
               initial={{ x: '100%' }} 
               animate={{ x: 0 }} 
@@ -265,7 +228,6 @@ export default function CollegeHeader() {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="fixed right-0 top-0 h-full w-[85%] max-w-sm bg-white z-[160] shadow-2xl flex flex-col"
             >
-              {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-slate-100">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white">
@@ -282,7 +244,6 @@ export default function CollegeHeader() {
                 </motion.button>
               </div>
 
-              {/* User Info Card */}
               <div className="p-4 bg-gradient-to-br from-indigo-50 to-purple-50 m-4 rounded-2xl">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
@@ -294,28 +255,25 @@ export default function CollegeHeader() {
                   </div>
                 </div>
                 
-                {/* Quick Actions */}
                 <div className="flex gap-2 mt-3">
-                  <button className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white rounded-xl text-xs font-medium text-indigo-600 shadow-sm">
+                  <Link href="/profile" className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white rounded-xl text-xs font-medium text-indigo-600 shadow-sm">
                     <FaUserAlt size={10} />
                     Profile
-                  </button>
-                  <button className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white rounded-xl text-xs font-medium text-green-600 shadow-sm">
+                  </Link>
+                  <a href="https://wa.me/916201084662" className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white rounded-xl text-xs font-medium text-green-600 shadow-sm">
                     <FaWhatsapp size={10} />
                     Support
-                  </button>
+                  </a>
                 </div>
               </div>
 
-              {/* Navigation Sections */}
               <div className="flex-1 overflow-y-auto px-4 pb-20">
-                {/* Main Menu */}
                 <div className="mb-4">
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 px-2">
-                    Main Menu
+                    Menu
                   </p>
                   <div className="space-y-1">
-                    {mainNavItems.map((item) => {
+                    {navItems.map((item) => {
                       const active = pathname === item.href
                       return (
                         <Link
@@ -343,36 +301,6 @@ export default function CollegeHeader() {
                   </div>
                 </div>
 
-                {/* More Items */}
-                <div className="mb-4">
-                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 px-2">
-                    Explore More
-                  </p>
-                  <div className="space-y-1">
-                    {moreNavItems.map((item) => {
-                      const active = pathname === item.href
-                      return (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex items-center gap-3 p-3 rounded-xl transition-all ${
-                            active 
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md' 
-                              : 'text-slate-600 hover:bg-indigo-50'
-                          }`}
-                        >
-                          <span className={`text-lg ${active ? 'text-white' : 'text-indigo-400'}`}>
-                            {item.icon}
-                          </span>
-                          <span className="text-sm font-medium">{item.name}</span>
-                        </Link>
-                      )
-                    })}
-                  </div>
-                </div>
-
-                {/* Help & Support */}
                 <div className="mb-4">
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 px-2">
                     Support
@@ -390,7 +318,6 @@ export default function CollegeHeader() {
                 </div>
               </div>
 
-              {/* Logout Button */}
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-100">
                 <button className="w-full flex items-center justify-center gap-2 py-3 bg-red-50 text-red-500 rounded-xl hover:bg-red-100 transition-colors font-medium">
                   <FaSignOutAlt size={14} />
@@ -402,7 +329,7 @@ export default function CollegeHeader() {
         )}
       </AnimatePresence>
 
-      {/* SEARCH OVERLAY - Mobile optimized */}
+      {/* SEARCH OVERLAY */}
       <AnimatePresence>
         {isSearchOpen && (
           <motion.div 
@@ -416,7 +343,7 @@ export default function CollegeHeader() {
                 <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
                 <input 
                   autoFocus 
-                  placeholder="Search..." 
+                  placeholder="Search colleges, courses, internships..." 
                   className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:border-indigo-400"
                 />
               </div>
@@ -429,11 +356,10 @@ export default function CollegeHeader() {
               </motion.button>
             </div>
 
-            {/* Recent Searches */}
             <div className="mt-4">
               <p className="text-xs font-semibold text-slate-400 mb-3">Recent Searches</p>
               <div className="space-y-2">
-                {['IIT Delhi', 'MBA Colleges', 'Internships'].map((item) => (
+                {['IIT Delhi', 'NIT Trichy', 'BITS Pilani', 'MBA Colleges', 'Internships'].map((item) => (
                   <button key={item} className="w-full text-left px-3 py-2.5 bg-slate-50 rounded-xl text-sm text-slate-600">
                     {item}
                   </button>
@@ -444,10 +370,10 @@ export default function CollegeHeader() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Bottom Navigation - Fixed for all mobile devices */}
-      <div className="xl:hidden fixed bottom-0 left-0 right-0 z-[120] bg-white border-t border-slate-100 shadow-lg">
+      {/* MOBILE BOTTOM NAVIGATION */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[120] bg-white border-t border-slate-100 shadow-lg safe-bottom">
         <div className="flex items-center justify-around px-2 py-1">
-          {navItems.slice(0, 5).map((item) => {
+          {mobileNavItems.map((item) => {
             const active = pathname === item.href
             return (
               <Link
@@ -457,8 +383,8 @@ export default function CollegeHeader() {
                   active ? 'text-indigo-600' : 'text-slate-400 hover:text-indigo-600'
                 }`}
               >
-                <span className={`text-lg ${active ? 'scale-110' : ''}`}>{item.icon}</span>
-                <span className="text-[8px] font-medium whitespace-nowrap">{item.name}</span>
+                <span className={`text-lg ${active ? 'scale-110 transition-transform' : ''}`}>{item.icon}</span>
+                <span className="text-[8px] md:text-[10px] font-medium whitespace-nowrap">{item.name}</span>
                 {active && (
                   <motion.div 
                     layoutId="bottomNav"
@@ -471,13 +397,13 @@ export default function CollegeHeader() {
         </div>
       </div>
 
-      {/* Quick Action Button for mobile */}
+      {/* QUICK ACTION BUTTON */}
       <motion.a
         href="tel:+916201084662"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1 }}
-        className="xl:hidden fixed bottom-20 right-4 z-[130] bg-green-500 text-white p-3 rounded-full shadow-lg shadow-green-200"
+        className="lg:hidden fixed bottom-20 right-4 z-[130] bg-green-500 text-white p-3 rounded-full shadow-lg shadow-green-200"
       >
         <FaPhone size={20} />
       </motion.a>

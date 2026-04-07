@@ -48,10 +48,10 @@ export default function CollegeFooter() {
   }
 
   const socialLinks = [
-    { icon: <Instagram size={20} />, href: '#', label: 'Instagram', color: 'hover:text-pink-500' },
-    { icon: <Linkedin size={20} />, href: '#', label: 'LinkedIn', color: 'hover:text-blue-500' },
-    { icon: <Youtube size={20} />, href: '#', label: 'YouTube', color: 'hover:text-red-500' },
-    { icon: <Twitter size={20} />, href: '#', label: 'Twitter', color: 'hover:text-sky-400' },
+    { icon: <Instagram size={20} />, href: 'https://instagram.com/collegeyaariofficial', label: 'Instagram', color: 'hover:text-pink-500' },
+    { icon: <Linkedin size={20} />, href: 'https://linkedin.com/company/collegeyaari', label: 'LinkedIn', color: 'hover:text-blue-500' },
+    { icon: <Youtube size={20} />, href: 'https://youtube.com/@collegeyaariofficial?si=Z4HMoB5Ftj74laGm', label: 'YouTube', color: 'hover:text-red-500' },
+    { icon: <Twitter size={20} />, href: 'https://twitter.com/collegeyaariofficial', label: 'Twitter', color: 'hover:text-sky-400' },
   ]
 
   const features = [
