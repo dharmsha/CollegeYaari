@@ -24,7 +24,7 @@ export async function POST(request) {
         message: smsText,
         language: 'english',
         flash: 0,
-        numbers: toNumber // 6201084662
+        numbers: toNumber // 8292748995
       })
     })
 

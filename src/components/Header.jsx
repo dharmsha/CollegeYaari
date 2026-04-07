@@ -260,7 +260,7 @@ export default function CollegeHeader() {
                     <FaUserAlt size={10} />
                     Profile
                   </Link>
-                  <a href="https://wa.me/916201084662" className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white rounded-xl text-xs font-medium text-green-600 shadow-sm">
+                  <a href="https://wa.me/918292748995" className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white rounded-xl text-xs font-medium text-green-600 shadow-sm">
                     <FaWhatsapp size={10} />
                     Support
                   </a>
@@ -306,11 +306,11 @@ export default function CollegeHeader() {
                     Support
                   </p>
                   <div className="space-y-1">
-                    <a href="tel:+916201084662" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-green-50 transition-all">
+                    <a href="tel:+918292748995" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-green-50 transition-all">
                       <FaPhone className="text-lg text-green-500" />
                       <span className="text-sm font-medium">Call Support</span>
                     </a>
-                    <a href="https://wa.me/916201084662" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-green-50 transition-all">
+                    <a href="https://wa.me/918292748995" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-green-50 transition-all">
                       <FaWhatsapp className="text-lg text-green-600" />
                       <span className="text-sm font-medium">WhatsApp</span>
                     </a>
@@ -399,7 +399,7 @@ export default function CollegeHeader() {
 
       {/* QUICK ACTION BUTTON */}
       <motion.a
-        href="tel:+916201084662"
+        href="tel:+918292748995"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1 }}
